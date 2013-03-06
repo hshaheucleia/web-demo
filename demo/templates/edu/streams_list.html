@@ -1,0 +1,15 @@
+{% if streams.count == 0 %}
+	<p>No Streams found</p>
+{% else %}
+	<div id="allstreamsdiv-{{ institute.id }}">
+	{% for stream in streams %}
+		<p>
+			<input type="checkbox" name="{{ stream.stream_code }}" /><span>{{ stream.name }}</span>
+		</p>
+	{% endfor %}
+		<p>
+		<input type='button' class='button' value='Apply for Selected Streams'
+				 id='applystreams-{{ institute.id }}' onclick="js_apply_streams('{{ institute.id }}','allstreamsdiv-{{ institute.id }}');">
+		</p>
+	</div>
+{% endif %}

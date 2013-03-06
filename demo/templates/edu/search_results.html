@@ -1,0 +1,15 @@
+<div>
+	<div>
+	{% if institutes.count == 0 %}
+		<p>No Institute found. Please try using different search options.</p>
+	{% else %}
+		{% for inst in institutes %}
+			<p>
+				<span><a href="#"><span>{{ inst.name }}</span></a></span>
+				<span><input type='button' class='button' value='Show Streams' id='showstreams-{{ inst.id }}' onclick="js_show_streams('{{ inst.id }}')"></span>
+			</p>
+			<div id="allstreamswrapper-{{ inst.id}}"></div>
+		{% endfor %}
+	{% endif %}
+	</div>
+</div>

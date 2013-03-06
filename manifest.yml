@@ -1,0 +1,17 @@
+---
+applications:
+  .:
+    name: demo
+    framework:
+      name: wsgi
+      info:
+        mem: 64M
+        description: Python WSGI Application
+        exec: 
+    infra: ap-aws
+    url: ecldemo.ap01.aws.af.cm
+    mem: '256'
+    instances: 1
+    services:
+      ecl-mysql:
+        type: mysql
