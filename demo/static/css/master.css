@@ -548,14 +548,14 @@ p.forgot-password{
 
 #header h1 a{
     width: 150px;
-    height: 112px;
+    height: 146px;
     display: block;
     text-indent: -9999px;
-    background: url(../img/bread-and-pepper-logo.png) center top;
+    background: url(../img/ecl-logo.png) no-repeat center top;
 }
 
 #header h1 a:hover{
-    background: url(../img/bread-and-pepper-logo.png) center bottom;
+    background: url(../img/ecl-logo.png) no-repeat center top;
 }
 
 
@@ -897,7 +897,19 @@ min-height: 52px;
     text-decoration: none;
 }   
 
+/* Custom css by harsh starts here */
 
+#easyNotification{
+	padding:5px 10px;
+	background:#fffed0;
+	border:1px solid #d4d287;
+	color:#333;
+	position:relative;
+	}
+#easyNotification span{
+	float:right;
+	cursor:pointer;
+	}
 
 
 

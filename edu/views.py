@@ -51,8 +51,10 @@ def get_streams_for_institute(request):
 def apply_for_institute(request):
     inst_pk = request.POST.get('inst_pk', '')
     selected_streams = request.POST.get('selected_streams', '')
+    today = datetime.date.today()
+    today.strftime("%d-%m-%Y")
     for stream_cd in selected_streams.split(','):
-        appln_id = '1-EDU-'+ request.user.username + '-' + inst_pk + '-' + stream_cd
+        appln_id = '1-EDU-'+ request.user.username + '-' + inst_pk + '-' + stream_cd + "-" +str(today)
         application = Application.objects.create(appln_id=appln_id,user=request.user,
                                              institute=Institute.objects.get(pk=int(inst_pk)),
                                              stream=Stream.objects.get(stream_code=stream_cd.strip()),

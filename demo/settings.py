@@ -12,12 +12,15 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(PROJECT_ROOT, 'private/development.db'),
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'demo',
+        'HOST': '',
+        'USER': 'demo',
+        'PASSWORD': 'demo'
+    }
+}
 
 # Internationalization
 TIME_ZONE = 'America/Chicago'
@@ -93,6 +96,13 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+DEFAULT_FROM_EMAIL = 'Eucleia Education <eucleiallp@gmail.com>'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'eucleiallp@gmail.com'
+EMAIL_HOST_PASSWORD = 'eucleiallp@gmail'
+EMAIL_PORT = '587'
+
 # Settings used by Userena
 LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
@@ -155,10 +165,3 @@ ANONYMOUS_USER_ID = -1
 
 # Test runner
 TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

@@ -78,8 +78,9 @@
             type: 'POST', // GET or POST
             url: "{% url 'edu_apply_for_institute' %}", // the file to call
             success: function(response) { 
-            	alert(response);// on success..
-            	$('#appmessages').html("Success! Your application has been received.");
+            	//alert(response);// on success..
+            	$.easyNotification('Success! Your application has been received.'); 
+            	//$('#appmessages').html("Success! Your application has been received.");
             }
         });
   	}
@@ -96,7 +97,6 @@
       <li><a href="{% url 'edu_my_applications' %}">{% trans "My Applications" %}</a></li>
       <!-- <li><a href="#">{% trans "Change email" %}</a></li> -->
   </ul>
-  <div id="appmessages"></div>
   <form action="{% url 'edu_get_search_results' %}" method="post" id="searchform">
     <div id="ajaxwrapper">
     {% csrf_token %}
