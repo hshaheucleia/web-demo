@@ -77,10 +77,15 @@
             data: {inst_pk : inst_pk, selected_streams : selected_streams.join(",")}, // get the form data
             type: 'POST', // GET or POST
             url: "{% url 'edu_apply_for_institute' %}", // the file to call
-            success: function(response) { 
-            	alert(response);// on success..
-            	$.easyNotification('Success! Your application has been received.'); 
-            	$('#appmessages').html("Success! Your application has been received.");
+            success: function(response) {
+            	if(response == 'success'){
+            		$.easyNotification('Success! Your application has been received.');	
+            	}else{
+            		$.easyNotification('Something went wrong. We are fixing it. Please try again in sometime.');
+            	}
+            	//alert(response);// on success..
+            	 
+            	//$('#appmessages').html("Success! Your application has been received.");
             }
         });
   	}
