@@ -48,41 +48,48 @@
       </div>
     </div>
     <div id="container">
-		<div class="demo-headline">
-        	<h1 class="demo-logo"><a href="{% url 'promo' %}" class="logo">Eucleia</a>
-          	Eucleia
-          	<small>Esteem Redefined</small>
-        	</h1>
-      	</div> <!-- /demo-headline -->
-      <div id="header">
-
-        <h1><a href="{% url 'promo' %}">django-userena</a></h1>
-
-        {% block nav %}
-        <ul id="nav">
-          <li><a href="{% url 'promo' %}"><span>{% trans 'Home' %}</span></a></li>
-          {% if user.is_authenticated %}
-          <!-- <li><a href="{% url 'userena_profile_list' %}"><span>{% trans 'All profiles' %}</span></a></li> -->
-          <!-- <li><a href="{% url 'userena_umessages_list' %}"><span>{% trans 'Messages' %}</span></a></li> -->
-          <li><a href="{% url 'edu_index' %}"><span>{% trans 'Education Portal' %}</span></a></li>
-          <li><a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'Profile' %} ({{ user.username }})</span></a></li>
-          <li><a href="{% url 'userena_signout' %}"><span>{% trans 'Signout' %}</span></a></li>
-          {% else %}
-          <li><a href="{% url 'userena_signin' %}"><span>{% trans 'Signin' %}</span></a></li>
-          <li><a href="{% url 'userena_signup' %}"><span>{% trans 'Signup' %}</span></a></li>
-          {% endif %}
-        </ul>
-        {% endblock %}
-        {% if not user.is_authenticated %}
-        <div id="try"></div>
-        {% endif %}
-
-      </div><!-- /header-->
-      {% block content_title %}{% endblock %}
-      <div id="content-container">
+		<div class="row demo-row">
+			<div class="span3">
+				<div id="header">
+        		<h1><a href="{% url 'promo' %}">eucleia-education</a></h1>
+				</div>
+			</div>
+			{% block nav %}
+			<div class="span9">
+				<div class="navbar navbar-inverse">
+					<div class="navbar-inner">
+						<div class="container">
+							<button data-target=".nav-collapse" data-toggle="collapse"
+								class="btn btn-navbar" type="button">
+								<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+									class="icon-bar"></span>
+							</button>
+							<div class="nav-collapse collapse">
+								<ul class="nav">
+									<li><a href="{% url 'promo' %}">{% trans 'Home' %}</a></li>
+									
+									{% if user.is_authenticated %}
+							          <li><a href="{% url 'edu_index' %}"><span>{% trans 'Education Portal' %}</span></a></li>
+							          <li><a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'Profile' %} ({{ user.username }})</span></a></li>
+							          <li><a href="{% url 'userena_signout' %}"><span>{% trans 'Signout' %}</span></a></li>
+							          {% else %}
+							          <li><a href="{% url 'userena_signin' %}"><span>{% trans 'Signin' %}</span></a></li>
+							          <li><a href="{% url 'userena_signup' %}"><span>{% trans 'Signup' %}</span></a></li>
+							         {% endif %}
+								</ul>
+							</div>
+							<!--/.nav-collapse -->
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endblock %}
+		</div>
+      	{% block content_title %}{% endblock %}
+      	<div id="content-container">
         {% block content %}{% endblock %}
-      </div><!-- /content-container-->
-      <div id="footer"><p>{% trans 'Made by' %} <a href="http://eucleiacorp.com">Eucleia</a></p></div>
+      	</div><!-- /content-container-->
+      	<div id="footer"><p>{% trans 'Made by' %} <a href="http://eucleiacorp.com">Eucleia</a></p></div>
     </div><!-- /container-->
    </body>
  </html>
