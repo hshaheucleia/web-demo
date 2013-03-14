@@ -12,9 +12,12 @@
     <meta name="author" content="Eucleia Consultancy LLP" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/master.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/flat-ui.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/master.css" %}" />
     <link rel="shortcut icon" type="image/ico" href="/favicon.ico" />
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
     <script type="text/javascript" src="{% static "js/easy.notification.js" %}"></script>
     {% block extra_js %}{% endblock %}
   </head>
@@ -45,6 +48,12 @@
       </div>
     </div>
     <div id="container">
+		<div class="demo-headline">
+        	<h1 class="demo-logo"><a href="{% url 'promo' %}" class="logo">Eucleia</a>
+          	Eucleia
+          	<small>Esteem Redefined</small>
+        	</h1>
+      	</div> <!-- /demo-headline -->
       <div id="header">
 
         <h1><a href="{% url 'promo' %}">django-userena</a></h1>
