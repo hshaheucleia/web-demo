@@ -99,7 +99,7 @@ class Institute(models.Model):
         return self.name
 
 class Application(models.Model):
-    appln_id = models.CharField(max_length=16,unique=True,verbose_name='Application ID')
+    appln_id = models.CharField(max_length=255,unique=True,verbose_name='Application ID')
     user = models.ForeignKey(user_model_label, related_name='applications')
     institute = models.ForeignKey(Institute)
     stream = models.ForeignKey(Stream)

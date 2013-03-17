@@ -1,15 +1,16 @@
-{% if streams.count == 0 %}
+{% if stream or streams.count == 0 %}
 	<p>No Streams found</p>
 {% else %}
-	<div id="allstreamsdiv-{{ institute.id }}">
+	<div id="div-streams-list" class="span3">
 	{% for stream in streams %}
-		<p>
-			<input type="checkbox" name="{{ stream.stream_code }}" /><span>{{ stream.name }}</span>
-		</p>
+		<div>
+			<label class="checkbox" for="{{ stream.stream_code }}">
+				<input type="checkbox" name="{{ stream.stream_code }}" id="{{ stream.stream_code }}"
+				{% if stream.stream_code in applied_streams %} checked="checked" disabled="" {% endif %}
+				>{{ stream.name }}
+			</label>
+		</div>
 	{% endfor %}
-		<p>
-		<input type='button' class='button' value='Apply for Selected Streams'
-				 id='applystreams-{{ institute.id }}' onclick="js_apply_streams('{{ institute.id }}','allstreamsdiv-{{ institute.id }}');">
-		</p>
+	<input type="hidden" id="stream-institute-id" value="{{ institute.id }}">
 	</div>
 {% endif %}

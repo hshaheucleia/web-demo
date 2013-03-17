@@ -431,10 +431,10 @@ input[type=text],input[type=password], input[type=file], textarea, span.editable
     float: right;
 }
 
-input[type=checkbox] {
+/* input[type=checkbox] {
     padding: 14px 0;
     width: 20px;
-}
+} */
 
 input[type=radio] {
     margin: 0 8px 0 0;

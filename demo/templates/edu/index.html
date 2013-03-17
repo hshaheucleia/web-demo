@@ -4,56 +4,14 @@
 {% block title %}{% trans "Search and Apply for Institutes" %}{% endblock %}
 {% block extra_js %}
 <script type="text/javascript">
-  /*<![CDATA[*/
-             
- $(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    }
-});
-  
-  
-  $(document).ready(function() {
+  	$(document).ready(function() {
         $('#searchform').submit(function() {// catch the form's submit event
-        	$('#appmessages').html("Searching...")
             $.ajax({ // create an AJAX call...
                 data: $(this).serialize(), // get the form data
                 type: $(this).attr('method'), // GET or POST
                 url: $(this).attr('action'), // the file to call
                 success: function(response) { // on success..
-                	$('#searchresults').html(response);
-                	$('#appmessages').html("");
+					$('#search-results').html(response);                	
                 }
             });
             return false;
@@ -61,10 +19,12 @@
     });
   	function js_show_streams(inst_pk){
   		$.get("{% url 'edu_get_streams_for_institute' %}", {inst_pk: inst_pk}, function(response){
-  			$('#allstreamswrapper-' + inst_pk).html(response);
+  			$('#modal-show-streams-body').html(response);
+  			initialize_checkbox_and_radio();
+        	$('#modal-show-streams').modal();
   		})
   	}
-  	function js_apply_streams(inst_pk, div_id){
+  	function js_apply_streams(div_id){
 		var selected_streams = [];
 	    // get all checked items
 	    var checked = $("#" + div_id).find('input:checked');
@@ -72,15 +32,13 @@
 	    $.each(checked, function() {
 	    	selected_streams.push($(this).attr('name'));
 	    });
-
+	    var inst_pk = $('#stream-institute-id').attr('value');
 		$.ajax({ // create an AJAX call...
             data: {inst_pk : inst_pk, selected_streams : selected_streams.join(",")}, // get the form data
             type: 'POST', // GET or POST
             url: "{% url 'edu_apply_for_institute' %}", // the file to call
             success: function(response) { 
-            	//alert(response);// on success..
-            	$.easyNotification('Success! Your application has been received.'); 
-            	//$('#appmessages').html("Success! Your application has been received.");
+            	alert(response);// on success..
             }
         });
   	}
@@ -108,5 +66,5 @@
 	<input type='submit' class='button' value='Search' id='searchbutton'>
     </div>
  </form>
- <div id="searchresults"></div>
+ <div id="search-results"></div>
 {% endblock %}
