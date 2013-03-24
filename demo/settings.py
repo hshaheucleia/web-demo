@@ -13,12 +13,13 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demo',
-        'HOST': '',
-        'USER': 'demo',
-        'PASSWORD': 'demo'
+     'default': {
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'eucleceu_educareer_stg',                      # Or path to database file if using sqlite3.
+        'USER': 'eucleceu_edu',                      # Not used with sqlite3.
+        'PASSWORD': 'eucleceu_edu',                  # Not used with sqlite3.
+        'HOST': '199.79.63.83',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '3306',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
 
