@@ -4,10 +4,12 @@
 	<div id="div-streams-list" class="span3">
 	{% for stream in streams %}
 		<div>
-			<label class="checkbox" for="{{ stream.stream_code }}">
+			<label {% if stream.stream_code in applied_streams %} class="checkbox checked" {% else %} class="checkbox" {% endif %}   for="{{ stream.stream_code }}">
+				<span class="icon"></span>
+				<span class="icon-to-fade"></span>
 				<input type="checkbox" name="{{ stream.stream_code }}" id="{{ stream.stream_code }}"
-				{% if stream.stream_code in applied_streams %} checked="checked" disabled="disabled" {% endif %}
-				>{{ stream.name }}
+				{% if stream.stream_code in applied_streams %} checked="checked" disabled="" {% endif %}
+				/>{{ stream.name }}
 			</label>
 		</div>
 	{% endfor %}

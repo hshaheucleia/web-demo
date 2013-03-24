@@ -62,9 +62,7 @@
 	    var checked = $("#" + div_id).find('input:checked');
 	    // for each of them
 	    $.each(checked, function() {
-	    	if($(this).attr('disabled') == null){
-	    		selected_streams.push($(this).attr('name'));	
-	    	}
+	    	selected_streams.push($(this).attr('name'));
 	    });
 	    var inst_pk = $('#stream-institute-id').attr('value');
 		
@@ -92,16 +90,8 @@
             }
         });
   	}
-  	function get_inst_info(inst_pk){
-  		$.get("{% url 'edu_get_institute_info' %}", {inst_pk: inst_pk}, function(response){
-  			$('#modal-show-coll-info-body').html(response);
-  			initialize_checkbox_and_radio();
-        	$('#modal-show-coll-info').modal();
-  		})
-  		
-  	}
-
-	function resetMessageSpan()
+	
+function resetMessageSpan()
 	{
 		$('#showMessage').html('');
 		$('#showMessage').removeClass();
@@ -112,7 +102,7 @@
 		$('#showMessage').html(message);
 		$('#showMessage').addClass(class_list);
 	}
-
+	
   /*]]>*/
 </script>
 {% endblock %}
@@ -121,12 +111,6 @@
 
 {% block content %}
 	<div id="showMessage" ></div>
-  <ul id="profile-nav">
-      <!-- <li><a href="#">{% trans "View profile" %}</a></li>  -->
-      <li class="selected"><a href="{% url 'edu_index' %}">{% trans "Search and Apply" %}</a></li>
-      <li><a href="{% url 'edu_my_applications' %}">{% trans "My Applications" %}</a></li>
-      <!-- <li><a href="#">{% trans "Change email" %}</a></li> -->
-  </ul>
   <form action="{% url 'edu_get_search_results' %}" method="post" id="searchform">
     <div id="ajaxwrapper">
     {% csrf_token %}
