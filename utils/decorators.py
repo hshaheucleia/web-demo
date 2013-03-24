@@ -4,6 +4,7 @@ from functools import wraps
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
+from django.core.urlresolvers import reverse
 
 
 def render_to(template=None, mimetype="text/html", extra_context_func=None):
@@ -120,4 +121,17 @@ def require_meta_operator(view):
             return redirect('call_center_home')
         else:
             return view(request, *args, **kwargs)
+    return inner
+
+
+def require_complete_profile(view):
+    '''Decorator to check that the logged-in user has complete profile'''
+    @login_required
+    def inner(request, *args, **kwargs):
+        user = request.user
+        # if user organization is not meta operator redirect to call center
+        if user.get_profile().is_profile_complete():
+            return view(request, *args, **kwargs)
+        else:
+            return redirect(reverse('userena_profile_edit', args=(user.username,)))
     return inner

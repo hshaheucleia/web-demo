@@ -6,7 +6,7 @@
 		<div>
 			<label class="checkbox" for="{{ stream.stream_code }}">
 				<input type="checkbox" name="{{ stream.stream_code }}" id="{{ stream.stream_code }}"
-				{% if stream.stream_code in applied_streams %} checked="checked" disabled="" {% endif %}
+				{% if stream.stream_code in applied_streams %} checked="checked" disabled="disabled" {% endif %}
 				>{{ stream.name }}
 			</label>
 		</div>

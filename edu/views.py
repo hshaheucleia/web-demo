@@ -2,8 +2,9 @@
 import datetime
 import uuid
 
-from utils.decorators import render_to
+from utils.decorators import render_to, require_complete_profile
 from django.shortcuts import get_object_or_404, redirect
+from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -12,13 +13,15 @@ from django.contrib.auth.decorators import login_required
 from edu.models import University, Institute, Application, Stream
 from edu.forms import SearchForm
 
-@login_required
+
+@require_complete_profile
 @render_to('edu/index.html')
 def index(request):
     form = SearchForm()
     return {'form':form}
 
-@login_required
+
+@require_complete_profile
 @render_to('edu/search_results.html')   
 def get_search_results(request):
     if request.POST:
@@ -45,7 +48,8 @@ def get_search_results(request):
         form = SearchForm()
         return {'form':form}
     
-@login_required
+    
+@require_complete_profile
 @render_to('edu/streams_list.html')
 def get_streams_for_institute(request):
     inst_pk = request.GET.get('inst_pk', '')
@@ -62,19 +66,27 @@ def get_streams_for_institute(request):
             }
     else:
         return { 'status': 'error'}
-    
-@login_required
+
+
+@require_complete_profile
 def apply_for_institute(request):
     inst_pk = request.POST.get('inst_pk', '')
     selected_streams = request.POST.get('selected_streams', '')
     status = 'success'
     for stream_cd in selected_streams.split(','):
-        appln_id = '1-EDU-'+ request.user.username + "-" + str(uuid.uuid4())
+        appln_id = request.user.username + "-" + str(uuid.uuid4())[24:]
+        print stream_cd
         try:
-            application = Application.objects.create(appln_id=appln_id,user=request.user,
-                                             institute=Institute.objects.get(pk=int(inst_pk)),
-                                             stream=Stream.objects.get(stream_code=stream_cd.strip()),
-                                             last_updated_by = request.user)
+            is_application_exist = Application.objects.filter(institute=Institute.objects.get(pk=int(inst_pk)),
+                                                              user=request.user,
+                                                              is_deleted=False,
+                                                              is_active=True,
+                                                              stream=Stream.objects.get(stream_code=stream_cd.strip())).exists()
+            if not is_application_exist:
+                application = Application.objects.create(appln_id=appln_id,user=request.user,
+                                                 institute=Institute.objects.get(pk=int(inst_pk)),
+                                                 stream=Stream.objects.get(stream_code=stream_cd.strip()),
+                                                 last_updated_by = request.user)
         except Exception as e:
             print e
             status = 'error'
@@ -83,15 +95,15 @@ def apply_for_institute(request):
     response = {'status' : status }
     return HttpResponse(simplejson.dumps(response))
 
-@login_required
+@require_complete_profile
 @render_to('edu/my_applications.html')
 def my_applications(request):
     user = request.user
-    print user.applications.all()
     applications = user.applications.all().exclude(is_deleted=1)
     return {'applications': applications}
 
-@login_required
+
+@require_complete_profile
 def delete_application(request):
     try:
         appln_id = request.POST['appln_id']
@@ -101,5 +113,19 @@ def delete_application(request):
         response = {'status' : 'success' }
         return HttpResponse(simplejson.dumps(response))
     except:
-        response = {'status' : 'failed' }
+        response = {'status' : 'error' }
         return HttpResponse(simplejson.dumps(response))
+
+
+@render_to('edu/about_institute.html')
+def get_institute_info(request):
+    inst_pk = request.GET.get('inst_pk', '')
+    if inst_pk:
+        institute = get_object_or_404(Institute,pk=inst_pk)
+        return {'status': 'success',
+                'name': institute.name,
+                'info' : institute.about_info}
+    else:
+        return { 'status': 'error'}
+        
+    

@@ -30,7 +30,9 @@
 	    var checked = $("#" + div_id).find('input:checked');
 	    // for each of them
 	    $.each(checked, function() {
-	    	selected_streams.push($(this).attr('name'));
+	    	if($(this).attr('disabled') == null){
+	    		selected_streams.push($(this).attr('name'));	
+	    	}
 	    });
 	    var inst_pk = $('#stream-institute-id').attr('value');
 		$.ajax({ // create an AJAX call...
@@ -41,6 +43,14 @@
             	alert(response);// on success..
             }
         });
+  	}
+  	function get_inst_info(inst_pk){
+  		$.get("{% url 'edu_get_institute_info' %}", {inst_pk: inst_pk}, function(response){
+  			$('#modal-show-coll-info-body').html(response);
+  			initialize_checkbox_and_radio();
+        	$('#modal-show-coll-info').modal();
+  		})
+  		
   	}
   /*]]>*/
 </script>

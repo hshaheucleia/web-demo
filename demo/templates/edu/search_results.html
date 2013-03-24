@@ -5,8 +5,11 @@
 	{% else %}
 		{% for inst in institutes %}
 			<div class="row">
-				<div class="span6"><a href="#">{% if inst.id in applied_institutes %}<span class="fui-checkmark-16"></span>{% endif %}{{ inst.name }}</a></div>
-				<div class="span3"><input type='button' class='button' value='Apply'
+				<div class="span6">
+					{% if inst.id in applied_institutes %}<span class="fui-checkmark-16"></span>{% endif %}
+					<a href="#" onclick="get_inst_info('{{ inst.id }}');return false;">{{ inst.name }}</a>
+				</div>
+				<div class="span3"><input type='button' class='btn btn-block btn-success' value='Apply'
 				 id='showstreams-{{ inst.id }}' onclick="js_show_streams('{{ inst.id }}')"></div>
 			</div>
 		{% endfor %}
@@ -21,6 +24,18 @@
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
 				<button class="btn btn-primary"	onclick="js_apply_streams('modal-show-streams');">
 				Apply for Selected Streams</button>
+			</div>
+		</div>
+		<!-- This is college info modal -->
+		<div id="modal-show-coll-info" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="modal-show-coll-info" aria-hidden="true">
+			<!-- <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel"></h3>
+			</div> -->
+			<div id="modal-show-coll-info-body" class="modal-body"></div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Okay</button>
 			</div>
 		</div>
 	{% endif %}

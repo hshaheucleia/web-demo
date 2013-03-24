@@ -43,6 +43,11 @@ class Profile(UserenaLanguageBaseProfile):
     marks_12_percent = models.DecimalField(max_digits=4,decimal_places=2,blank=True,null=True)
     
     photo_id = models.CharField(max_length=100,blank=True)
+    
+    def is_profile_complete(self):
+        if self.exam_appeared and self.marks_10_percent and self.marks_12_percent and self.photo_id and self.pin and self.mobile:
+            return True
+        return False
 
     @property
     def age(self):

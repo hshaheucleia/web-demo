@@ -93,6 +93,7 @@ class Institute(models.Model):
     accr_status = models.CharField(max_length=1,choices=AVAILABILITY_CHOICES,verbose_name='Accredition Status')
     last_accr_date = models.DateField('last_accredited_date')
     nominal_fee = models.DecimalField(max_digits=9,decimal_places=2)
+    about_info = models.TextField(blank=True)
     created_by = models.ForeignKey(user_model_label)
     created_date = models.DateTimeField(auto_now_add=True)
     def __unicode__(self):
