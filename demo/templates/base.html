@@ -4,10 +4,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
   <head>
-    <title>{% block title %}Eucleia Education Portal - Helping you fulfill your dreams{% endblock %}</title>
+    <title>{% block title %}Eucleia Education Portal{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="description" content="Education portal helping in counselling and admission in India" />
+    <meta name="description" content="Education portal for education counselling and admissions" />
     <meta name="keywords" content="education, eucleia, counselling, education, india, admission, colleges, institutes, courses, universities" />
     <meta name="author" content="Eucleia Consultancy LLP" />
 
@@ -21,7 +21,8 @@
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
     <script type="text/javascript">
 		  /*<![CDATA[*/
-		             
+		 $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
+		 
 		 $(document).ajaxSend(function(event, xhr, settings) {
 		    function getCookie(name) {
 		        var cookieValue = null;
@@ -70,14 +71,61 @@
   <body>
     <div id="top">
       {% if messages %}
-      <ul class="messages">
+      <!--<ul class="messages">
         {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
         {% endfor %}
-      </ul>
+      </ul>-->
       {% endif %}
 
-      <div id="lang_form">
+      {% block nav %}
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<div class="container">
+					<div class="nav-collapse collapse">
+					<span> Eucleia Consultancy LLP | Career Path</span>
+						<ul class="nav" style="float:right;">
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'promo' %}" class="primay_menu_item"><div class="manageapplication_icon" style="padding:0;"><span>Manage Applications</span></div></a>
+								<ul>
+									<li><a href="{% url 'edu_index' %}">{% trans "Search and Apply" %}</a></li>
+									<li><a href="{% url 'edu_my_applications'%}">{% trans 'My Applications' %}</a></li>
+								</ul>
+							</li>
+							<li><a href="{% url 'userena_profile_detail' user.username %}" class="primay_menu_item"><div class="useraccount_icon" style="padding:0;"><span>{{ user.username }}</span></div></a>
+								<ul>
+									<li><a href="{% url 'userena_profile_detail' user.username %}">{% trans 'View profile' %}</a></li>
+									<li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit profile" %}</a></li>
+									<li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
+									<li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
+									<li><a href="{% url 'userena_signout' %}">{% trans 'Logout' %}</a></li>
+								</ul>
+							</li>
+							{% else %}
+							 <li><a href="{% url 'userena_signin' %}" class="primay_menu_item"><div class="login_icon" style="padding:0;"><span>{% trans 'Login' %}</span></div></a></li>
+							  <li><a href="{% url 'userena_signup' %}" class="primay_menu_item"><div class="register_icon" style="padding:0;" ><span>{% trans 'Register' %}</span></div></a></li>
+							  <li><a href="{% url 'promo' %}" class="primay_menu_item"><div class="home_icon" style="padding:0;"><span>{% trans 'Home' %}</span></div></a></li>
+							  {% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+          <!--<a href="{% url 'promo' %}"><div class="home_icon"><span>{% trans 'Home' %}</span></div></a></li>
+          {% if user.is_authenticated %}
+          <a href="{% url 'userena_profile_list' %}"><span>{% trans 'All profiles' %}</span></a>
+          <a href="{% url 'userena_umessages_list' %}"><span>{% trans 'Messages' %}</span></a>-->
+          <!--<a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'Account' %} ({{ user.username }})</span></a>
+		  
+          <a href="{% url 'userena_signout' %}"><div class="logout_icon"><span>{% trans 'Logout' %}</span></div></a>
+          {% else %}
+          <a href="{% url 'userena_signin' %}"><div class="login_icon"><span>{% trans 'Login' %}</span></div></a>
+          <a href="{% url 'userena_signup' %}"><div class="register_icon"><span>{% trans 'Register' %}</span></div></a>
+          {% endif %}-->
+        
+        {% endblock %}
+	  
+      <!--<div id="lang_form">
         <form action="/i18n/setlang/" method="post" id="locale_switcher">
           {% csrf_token %}
           <input name="next" type="hidden" value="{{ request.path }}" />
@@ -91,50 +139,22 @@
             <input type="submit" value="{% trans "Change language" %}" />
           </noscript>
         </form>
-      </div>
+      </div>-->
     </div>
     <div id="container">
-		<div class="row demo-row">
+		<!--<div class="row demo-row">
 			<div class="span3">
 				<div id="header">
         		<h1><a href="{% url 'promo' %}">eucleia-education</a></h1>
 				</div>
 			</div>
-			{% block nav %}
-			<div class="span9">
-				<div class="navbar navbar-inverse">
-					<div class="navbar-inner">
-						<div class="container">
-							<button data-target=".nav-collapse" data-toggle="collapse"
-								class="btn btn-navbar" type="button">
-								<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-									class="icon-bar"></span>
-							</button>
-							<div class="nav-collapse collapse">
-								<ul class="nav">
-									<li><a href="{% url 'promo' %}">{% trans 'Home' %}</a></li>
-									{% if user.is_authenticated %}
-							          <li><a href="{% url 'edu_index' %}"><span>{% trans 'Education Portal' %}</span></a></li>
-							          <li><a href="{% url 'userena_profile_detail' user.username %}"><span>{% trans 'Profile' %} ({{ user.username }})</span></a></li>
-							          <li><a href="{% url 'userena_signout' %}"><span>{% trans 'Signout' %}</span></a></li>
-							          {% else %}
-							          <li><a href="{% url 'userena_signin' %}"><span>{% trans 'Signin' %}</span></a></li>
-							          <li><a href="{% url 'userena_signup' %}"><span>{% trans 'Signup' %}</span></a></li>
-							         {% endif %}
-								</ul>
-							</div>
-							<!--/.nav-collapse -->
-						</div>
-					</div>
-				</div>
-			</div>
-			{% endblock %}
-		</div>
+			
+		</div>-->
       	{% block content_title %}{% endblock %}
       	<div id="content-container">
         {% block content %}{% endblock %}
       	</div><!-- /content-container-->
-      	<div id="footer"><p>{% trans 'Made by' %} <a href="http://eucleiacorp.com">Eucleia</a></p></div>
+      	<!--<div id="footer"><p>{% trans 'Made by' %} <a href="http://eucleiacorp.com">Eucleia</a></p></div>-->
     </div><!-- /container-->
    	<script type="text/javascript" src="{% static "js/jquery-ui-1.10.0.custom.min.js" %}"></script>
    	<script type="text/javascript" src="{% static "js/jquery.dropkick-1.0.0.js" %}"></script>
@@ -144,6 +164,7 @@
    	<script type="text/javascript" src="{% static "js/bootstrap-tooltip.js" %}"></script>
    	<script type="text/javascript" src="{% static "js/jquery.placeholder.js" %}"></script>
    	<script type="text/javascript" src="{% static "js/application.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.blockUI.js" %}"></script>
     <script src="http://vjs.zencdn.net/c/video.js"></script>
     <!--[if lt IE 8]>
     	<script type="text/javascript" src="{% static "js/icon-font-ie7.js" %}"></script>

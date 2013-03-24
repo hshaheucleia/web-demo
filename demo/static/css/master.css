@@ -12,34 +12,92 @@ breadandpepper.com
 ................................... */
 
 html, body{
-    /* font-family: 'Droid Sans', helvetica, arial, Geneva, sans-serif;
-    background: #eae5e1 url(../img/bg-container.png) repeat-y center top; */
+    font-family: Verdana,'Droid Sans', helvetica, arial, Geneva, sans-serif;
+	font-size:13px;
+    /*background: #eae5e1 url(../img/bg-container.png) repeat-y center top;*/
 }
 
-#container{
-    width: 1008px;
+/*#container{
+    width: 90%;
     margin: 30px auto 50px;
-    /*-moz-border-radius: 8px;
-   // -webkit-border-radius: 8px;
-    //border-radius: 8px;
-    // -moz-box-shadow: 0 0 3px #999;
-    //-webkit-box-shadow: 0 0 3px #999;
-    //box-shadow: 0 0 3px #999; */
-	background-color: none;
-	//border: 1px solid #fff;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+     -moz-box-shadow: 0 0 3px #999;
+    -webkit-box-shadow: 0 0 3px #999;
+    box-shadow: 0 0 3px #999;
+	background-color: #f6f4f2;
+	border: 1px solid #fff;
 	padding: 0 10px;
+}*/
+#container{
+	height:100%;
 }
 
 #top{
-    height: 30px;
-    background-color: #111;
-    border-bottom: 1px solid #fff;
+    height: 40px;
+    background: #34495E; 
+	color:#fff;
+	padding:5px;
+	padding-bottom:0;
 }
 
+.primay_menu_item {
+	color:#fff;
+	text-decoration:none;
+	font-size:13px;
+	padding-left:10px;
+	padding-right:10px;
+	border:none;
+	border-left: 1px solid #4AA000;
+	float: right;
+	min-width:150px;
+	width:auto;
+}
+
+#top a:hover{
+	background-color: white;
+	color:#446CB3;
+}
+
+.home_icon {
+	background:url(../img/Home.png) no-repeat;
+	height: 40px;
+}
+
+.login_icon {
+	background:url(../img/SignIn.png) no-repeat;
+	height: 40px;
+}
+
+.logout_icon {
+	background:url(../img/Home.png) no-repeat;
+	height: 40px;
+}
+
+.register_icon {
+	background:url(../img/SignUp.png) no-repeat;
+	height: 40px;
+}
+
+.useraccount_icon{
+	background:url(../img/useraccount.png) no-repeat;
+	height: 40px;
+}
+
+.manageapplication_icon{
+	background:url(../img/application.png) no-repeat;
+	height: 40px;
+}
+
+.home_icon  span, .register_icon  span, .logout_icon  span, .login_icon  span, .useraccount_icon span, .manageapplication_icon span {
+	margin: 0 0 0 48px;
+}
 
 #content-container{
     padding: 12px;
     position: relative;
+	height:100%;
 }
 #header{
     height: 130px;
@@ -48,7 +106,7 @@ html, body{
     position: relative;
 }
 
-/*#nav{
+#nav{
     position: absolute;
     right: 12px;
     top: 48px;
@@ -115,18 +173,19 @@ html, body{
 
 #nav li a span:active { 
 
-}*/
+}
 
 #intro{
     padding: 30px 20px;
     min-height: 290px;
-    background: #e7e2de url(../img/userena.png) no-repeat 90px 30px;
+    background:  url(../img/career.jpg) no-repeat 30px 10px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
-     -moz-box-shadow: inset 0 0 3px #999;
-    -webkit-box-shadow: inset 0 0 3px #999;
-    box-shadow: inset 0 0 3px #999;
+     -moz-box-shadow: inset 0 0 3px #1ABC9C;
+    -webkit-box-shadow: inset 0 0 3px #1ABC9C;
+    box-shadow: inset 0 0 3px #1ABC9C;
+	height:80%;
    position: relative;
    overflow: hidden;
 }
@@ -137,13 +196,13 @@ html, body{
     padding: 10px;
     margin: 0;
     font-weight: bold;
-    text-shadow: #000 -1px -1px 0;
-    color: #c1bcb9;
+    text-shadow: #319300 -1px -1px 0;
+    color: white;
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-	background-image: url(../img/trans.png);
+	background-color: #319300;
 	-moz-border-radius-topleft: 0px;
 -moz-border-radius-topright: 0px;
 -moz-border-radius-bottomright: 8px;
@@ -260,7 +319,7 @@ h2.intro{
 
 h2 span{
     font-size: 1.8em;
-    color: #ac1500;
+    color: #D35400;
 }
 
 .white-box h2{
@@ -275,7 +334,7 @@ h2 span{
 }
 
 h3{
-    font-size: 1.2em;
+    /*font-size: 1.2em;*/
     margin: 0 0 5px;
 }
 
@@ -293,7 +352,7 @@ h6{
 }
 
 a{
-    color: #880e00;
+    color: #e74c3c;
     text-decoration: underline;
 }
 
@@ -384,7 +443,7 @@ form p {
     padding: 4px 0 4px;
     margin: 0 0 0 0;
     position: relative;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
     overflow: hidden;
     font-size: 0.7em;
     color: #999;
@@ -395,17 +454,17 @@ form p label {
     padding: 10px 20px 0 0;
     float: left;
     display: block;
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #444;
+    /*font-weight: bold;*/
+    font-size: 1.5em;
+    color: #34495E;
     text-align: right;
 }
 
 form p.checkbox {
     border: none;
 }
-
-form p.checkbox label {
+/*
+form label.checkbox, form label.checkbox span {
     width: inherit;
     float: none;
     text-align: left;
@@ -431,10 +490,10 @@ input[type=text],input[type=password], input[type=file], textarea, span.editable
     float: right;
 }
 
-/* input[type=checkbox] {
+input[type=checkbox] {
     padding: 14px 0;
     width: 20px;
-} */
+}
 
 input[type=radio] {
     margin: 0 8px 0 0;
@@ -498,12 +557,12 @@ input[type=submit]:active {
     padding: 0;
     margin: 3px;
     width: 10px;
-}
+}*/
 
 ul.errorlist {
-    border: 1px solid #a3181c;
-    background-color: #fedae0;
-    color: #a3181c;
+    border: 1px solid #e74c3c;
+    background-color: white;
+    color: #e74c3c;
     margin: 5px 0 3px 0;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -520,9 +579,9 @@ legend {
     width: 500px;
     padding: 5px 0 6px 0;
     font-size: 1.3em;
-    color: #ab292a;
+    color: #d35400;
     font-weight: bold;
-    border-bottom: 1px solid #ddd;
+    /*border-bottom: 1px solid #ddd;*/
 	text-transform: uppercase;
 }
 
@@ -533,29 +592,29 @@ fieldset {
 p.forgot-password{
     padding: 10px 0 10px 180px;
     margin: 30px 0 10px;
-    border-bottom: 1px solid #f1edeb;
-    border-top: 1px solid #f1edeb;
-} 
+    /*border-bottom: 1px solid #f1edeb;*/
+    /*border-top: 1px solid #f1edeb;*/
+}
 
 /*	Nav
 ................................... */
 
- #header h1{
+#header h1{
     width: 150px;
     height: 112px;
     margin: 0;
 }
-
+/*
 #header h1 a{
     width: 150px;
-    height: 146px;
+    height: 112px;
     display: block;
     text-indent: -9999px;
-    background: url(../img/ecl-logo.png) no-repeat center top;
+    background: url(../img/bread-and-pepper-logo.png) center top;
 }
-
+*/
 #header h1 a:hover{
-    background: url(../img/ecl-logo.png) no-repeat center top;
+    background: url(../img/bread-and-pepper-logo.png) center bottom;
 }
 
 
@@ -606,7 +665,7 @@ ul#profile-nav li a{
 
 ul#profile-nav li a:hover{
     text-decoration: underline;
-} 
+}
 
 /*	features
 ................................... */
@@ -619,13 +678,17 @@ ul.features {
 
 
 ul.features li{
-    background: url(../img/stripe.png) repeat-x center top;
-    padding: 30px 10px 0 0;
-    float: left;
-    width: 310px;
+    /*background: url(../img/stripe.png) repeat-x center top;*/
+    padding: 0px 10px 0 0;
+    float: right;
+    width: 300px;
     margin: 10px 0 0 12px;
     min-height: 180px;
-}   
+}  
+
+ul.features li h3{
+bsackground: url(../img/stripe.png) repeat-x center bottom;
+} 
 
 /*	blocks
 ................................... */
@@ -897,19 +960,7 @@ min-height: 52px;
     text-decoration: none;
 }   
 
-/* Custom css by harsh starts here */
 
-#easyNotification{
-	padding:5px 10px;
-	background:#fffed0;
-	border:1px solid #d4d287;
-	color:#333;
-	position:relative;
-	}
-#easyNotification span{
-	float:right;
-	cursor:pointer;
-	}
 
 
 

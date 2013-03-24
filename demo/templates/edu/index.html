@@ -1,4 +1,4 @@
-{% extends 'userena/base_userena.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load url from future %}
 {% block title %}{% trans "Search and Apply for Institutes" %}{% endblock %}
@@ -10,6 +10,13 @@
                 data: $(this).serialize(), // get the form data
                 type: $(this).attr('method'), // GET or POST
                 url: $(this).attr('action'), // the file to call
+				beforeSend:function(){
+					resetMessageSpan();
+					$.blockUI();
+				},
+				complete: function() {
+					$.unblockUI();
+				},
                 success: function(response) { // on success..
 					$('#search-results').html(response);                	
                 }
@@ -18,12 +25,37 @@
         });
     });
   	function js_show_streams(inst_pk){
+  		$.ajax({
+				url: "{% url 'edu_get_streams_for_institute' %}",
+				data: {inst_pk: inst_pk},
+				beforeSend:function(){
+					resetMessageSpan();
+					$.blockUI();
+				},
+				complete: function() {
+					$.unblockUI();
+				},
+				success: function(response){
+											$('#modal-show-streams-body').html(response);
+											initialize_checkbox_and_radio();
+											$('#modal-show-streams').modal();
+										},
+				error: function(jqXHR, textStatus, errorThrown){
+											$('#modal-show-streams-body').html(response + '+ ' + textStatus + '+ ' + errorThrown);
+											initialize_checkbox_and_radio();
+											$('#modal-show-streams').modal();
+								}
+		});
+  	}
+	
+	/*function js_show_streams(inst_pk){
   		$.get("{% url 'edu_get_streams_for_institute' %}", {inst_pk: inst_pk}, function(response){
   			$('#modal-show-streams-body').html(response);
   			initialize_checkbox_and_radio();
         	$('#modal-show-streams').modal();
   		})
-  	}
+  	}*/
+	
   	function js_apply_streams(div_id){
 		var selected_streams = [];
 	    // get all checked items
@@ -35,12 +67,28 @@
 	    	}
 	    });
 	    var inst_pk = $('#stream-institute-id').attr('value');
+		
+		$('#modal-show-streams').modal('toggle');
 		$.ajax({ // create an AJAX call...
             data: {inst_pk : inst_pk, selected_streams : selected_streams.join(",")}, // get the form data
             type: 'POST', // GET or POST
             url: "{% url 'edu_apply_for_institute' %}", // the file to call
+			beforeSend:function(){
+					$.blockUI();
+				},
+				complete: function() {
+					$.unblockUI();
+				},
             success: function(response) { 
             	alert(response);// on success..
+				var obj = $.parseJSON(response);
+				
+				if(obj['status'] == 'success')
+				{
+					setMessageSpan('Your application for the selected streams has been successfully registered. Please visit My Applications page to see all the applications', 'btn btn-large btn-block btn-primary');
+				}else{
+					setMessageSpan('We encountered error while registering your application. Please retry after some time. You may visit My Applications page to see all the applications', 'btn btn-large btn-block btn-danger');
+				}
             }
         });
   	}
@@ -52,13 +100,27 @@
   		})
   		
   	}
+
+	function resetMessageSpan()
+	{
+		$('#showMessage').html('');
+		$('#showMessage').removeClass();
+	}
+	
+	function setMessageSpan(message, class_list)
+	{
+		$('#showMessage').html(message);
+		$('#showMessage').addClass(class_list);
+	}
+
   /*]]>*/
 </script>
 {% endblock %}
 
-{% block content_title %}<h2 class="content-title">Universities &raquo; {{ account.user.username }}</h2>{% endblock %}
+{% block content_title %}{% endblock %}
 
 {% block content %}
+	<div id="showMessage" ></div>
   <ul id="profile-nav">
       <!-- <li><a href="#">{% trans "View profile" %}</a></li>  -->
       <li class="selected"><a href="{% url 'edu_index' %}">{% trans "Search and Apply" %}</a></li>
@@ -73,7 +135,9 @@
     	{{ form.non_field_errors }}
     	{{ form.as_p }}
     </fieldset>
-	<input type='submit' class='button' value='Search' id='searchbutton'>
+	<div class="span3">
+	  <input type="submit" class="btn btn-block btn-success" value="{% trans "Search" %}"  id='searchbutton'>
+	</div>
     </div>
  </form>
  <div id="search-results"></div>

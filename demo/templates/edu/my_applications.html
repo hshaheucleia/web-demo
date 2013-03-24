@@ -1,4 +1,4 @@
-{% extends 'userena/base_userena.html' %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load url from future %}
 {% block title %}{% trans "My Applications" %}{% endblock %}
@@ -10,10 +10,26 @@
             data: {appln_id : appln_id}, // get the form data
             type: 'POST', // GET or POST
             url: "{% url 'edu_delete_application' %}", // the file to call
+			beforeSend:function(){
+					$.blockUI();
+				},
+				complete: function() {
+					$.unblockUI();
+				},
             success: function(response) { 
-            	alert(response);// on success..
+            	//alert(response);// on success..
+								
             	btnid = 'deleteapplication-' + appln_id;
             	delete_row(btnid);
+				
+				var obj = $.parseJSON(response);
+				alert(obj['status']);
+				if(obj['status'] == 'success')
+				{
+					setMessageSpan('Your application for the selected streams has been successfully deleted.', 'btn btn-large btn-block btn-primary');
+				}else{
+					setMessageSpan('We encountered error while deleting your application. Please retry after some time.', 'btn btn-large btn-block btn-danger');
+				}
             }
         });
   	}
@@ -22,19 +38,27 @@
              $('#'+btnid).closest("tr").remove();
           } 
   	};
+	
+	function resetMessageSpan()
+	{
+
+		$('#showMessage').html('');
+		$('#showMessage').removeClass();
+	}
+	
+	function setMessageSpan(message, class_list)
+	{
+		$('#showMessage').html(message);
+		$('#showMessage').addClass(class_list);
+	}
   /*]]>*/
 </script>
 {% endblock %}
 
-{% block content_title %}<h2 class="content-title">Applications &raquo; {{ account.user.username }}</h2>{% endblock %}
+{% block content_title %}{% endblock %}
 
 {% block content %}
-  <ul id="profile-nav">
-      <!-- <li><a href="#">{% trans "View profile" %}</a></li>  -->
-      <li><a href="{% url 'edu_index' %}">{% trans "Search and Apply" %}</a></li>
-      <li class="selected"><a href="{% url 'edu_my_applications' %}">{% trans "My Applications" %}</a></li>
-      <!-- <li><a href="#">{% trans "Change email" %}</a></li> -->
-  </ul>
+	<div id="showMessage" ></div>
   <table id='my-applications' class="table table-striped">
   	<thead>
   		<th>Application ID</th>
@@ -52,8 +76,10 @@
   			<td>{{ application.stream.name }}</td>
   			<td>{{ application.get_priority_number_display }}</td>
   			<td>{{ application.created_date }}</td>
-  			<td><input type='button' class='btn btn-block btn-danger' value='Delete' id='deleteapplication-{{ application.appln_id }}'
-  			 onclick="js_delete_application('{{ application.appln_id }}')"></td>
+  			<td>
+			<div class="span3">
+			<input type='button' class='btn btn-block btn-danger' value='Delete' id='deleteapplication-{{ application.appln_id }}'
+  			 onclick="js_delete_application('{{ application.appln_id }}')"></div></td>
   		</tr>
   	{% endfor %}
   	</tbody>

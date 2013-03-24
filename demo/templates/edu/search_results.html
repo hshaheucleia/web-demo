@@ -3,6 +3,35 @@
 	{% if institutes.count == 0 %}
 		<p>No Institute found. Please try using different search options.</p>
 	{% else %}
+		<!--Region to show institutes in a tabulated manner-->
+		
+		  <table id='my-applications' class="table table-striped">
+			<thead>
+				<th>Institute Name</th>
+				<th>AICTE Approval</th>
+				<th>University</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Actions</th>
+			</thead>
+			<tbody>
+			{% for inst in institutes %}
+				<tr>
+					<td>{{ inst.name }}</td>
+					<td>{% if  inst.aicte_approv_status == 1 %} Yes {% else %} No {% endif %}</td>
+					<td>{{ inst.university.name }}</td>
+					<td></td>
+					<td>{{ inst.cur_state }}</td>
+					<td>
+					<div class="span3">
+					<input type='button' class='btn btn-success' value='Apply'
+				 id='showstreams-{{ inst.id }}' onclick="js_show_streams('{{ inst.id }}')">
+				</tr>
+			{% endfor %}
+			</tbody>
+		  </table>
+		<!--End of region-->
+		<!--Old Code to display isntitutes --Commented
 		{% for inst in institutes %}
 			<div class="row">
 				<div class="span6">
@@ -12,12 +41,12 @@
 				<div class="span3"><input type='button' class='btn btn-block btn-success' value='Apply'
 				 id='showstreams-{{ inst.id }}' onclick="js_show_streams('{{ inst.id }}')"></div>
 			</div>
-		{% endfor %}
+		{% endfor %}-->
 		<div id="modal-show-streams" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="modal-show-streams" aria-hidden="true">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Select streams to apply to...</h3>
+				<h3 id="myModalLabel">Select Streams</h3>
 			</div>
 			<div id="modal-show-streams-body" class="modal-body"></div>
 			<div class="modal-footer">
