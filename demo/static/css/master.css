@@ -223,8 +223,11 @@ border-bottom-left-radius: 8px;
 
 #footer{
     background: url(../img/stripe.png) repeat-x center top;
-    margin: 40px 12px 0;
-    padding: 20px 0;
+    width:100%;
+    padding: 5px 0;
+	position:absolute;
+	bottom:0;
+	text-align:center;
 }
 
 .white-box{
@@ -234,7 +237,7 @@ border-bottom-left-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
     background-color: #efebe8;
-    width: 506px;
+    /*width: 506px;*/
     -moz-box-shadow: inset 0 0 3px #999;
     -webkit-box-shadow: inset 0 0 3px #999;
     box-shadow:  inset 0 0 3px #999;
@@ -242,8 +245,8 @@ border-bottom-left-radius: 8px;
 }
 
 #details{
-    width: 140px;
-    margin: 0 0;
+    /*width: 140px;*/
+    margin: 10px;
     background-color: #fffeff;
     padding: 6px;
     text-align: left;
@@ -960,7 +963,24 @@ min-height: 52px;
     text-decoration: none;
 }   
 
+.appInstructions {
+	list-style-type:decimal;
+	list-style:inside;
+}
 
+.appInstructions li {
+	padding:5px;
+	list-style-type: decimal;
+}
 
+#buttonBarBottom div, #buttonBarTop div {
+	float: right;
+	}
+	
+#buttonBarBottom , #buttonBarTop 	 {
+	width:100%;
+	height:auto;
+	padding:5px;
+	}
 
 

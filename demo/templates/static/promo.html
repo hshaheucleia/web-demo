@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 {% load url from future %}
+{% block extra_js %}
+<SCRIPT>
+
+$(window).load(function() {
+			/*Adjust the banner height*/
+		  $("#intro").height($(window).height() - 150);
+		  
+		  });
+</SCRIPT>
+{% endblock %}
 {% block content %}
+
 <div id="intro">
   <h2 class="intro"><span>Eucleia Education Portal</span><br/>Helping You Fulfill Your Educational Dreams</h2>
 

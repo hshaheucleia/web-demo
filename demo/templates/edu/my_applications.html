@@ -22,6 +22,22 @@
 																				
 																	}	
 																	});
+																	
+									$('#modal-show-instructions').modal();
+									
+									/*Synchs button bar available at the top and bottom of the page*/
+									$('#buttonBarBottom').html($('#buttonBarTop').html());
+									
+									
+									
+									if($('#my-application-page').height() < $(window).height())
+									{
+										$('#buttonBarTop').hide();
+									}else
+									{
+										$('#buttonBarTop').height($('.span3').height());
+									}
+										
 								});
 	
   	function js_delete_application(appln_id){
@@ -70,6 +86,18 @@
 		$('#showMessage').html(message);
 		$('#showMessage').addClass(class_list);
 	}
+	
+	function printMyApplication()
+	{
+		$('#my-application-page').printElement({
+													printMode:'popup',
+													pageTitle:'Application_Preference_List.html'
+												});
+	}
+	
+	function saveMyApplicationPreference()
+	{
+	}
   /*]]>*/
 </script>
 {% endblock %}
@@ -78,29 +106,93 @@
 
 {% block content %}
 	<div id="showMessage" ></div>
-  <table id="my-applications" class="table table-striped">
-  	<thead>
-  		<th>Application ID</th>
-  		<th>Institute</th>
-  		<th>Stream</th>
-  		<th>Priority</th>
-  		<th>Created on</th>
-  		<th>Actions</th>
-  	</thead>
-  	<tbody>
-  	{% for application in applications %}
-  		<tr id="{{ forloop.counter }}">
-  			<td id="applicationID">{{ application.appln_id }}</td>
-  			<td>{{ application.institute.name }}</td>
-  			<td>{{ application.stream.name }}</td>
-  			<td id="priorityIndex">{{ application.get_priority_number_display }}</td>
-  			<td>{{ application.created_date }}</td>
-  			<td>
-			<div class="span3">
-			<input type='button' class='btn btn-block btn-danger' value='Delete' id='deleteapplication-{{ application.appln_id }}'
-  			 onclick="js_delete_application('{{ application.appln_id }}')"></div></td>
-  		</tr>
-  	{% endfor %}
-  	</tbody>
-  </table>
-{% endblock %}
+	<div id="buttonBarTop" style="width:100%">
+		
+		<div class="span3">
+			<input type='button' class='btn btn-block btn-danger' value='Submit and Pay' style="float:right;" onclick="$('#modal-show-submit').modal();" />
+		</div>
+		
+		<div class="span3">
+			<input type='button' class='btn btn-block btn-success' value='Save My Preferences' style="float:right;" onclick="saveMyApplicationPreference();" />
+		</div>
+		
+		<div class="span3">
+			<input type='button' class='btn btn-block' value='Print' style="float:right;" onclick="printMyApplication();" />
+		</div>
+		
+	</div>
+	
+	<div id="my-application-page">
+	  <table id="my-applications" class="table table-striped">
+		<thead>
+			<th>Application ID</th>
+			<th>Institute</th>
+			<th>Stream</th>
+			<th>Priority</th>
+			<th>Created on</th>
+			<th></th>
+		</thead>
+		<tbody>
+		{% for application in applications %}
+			<tr id="{{ forloop.counter }}">
+				<td id="applicationID">{{ application.appln_id }}</td>
+				<td>{{ application.institute.name }}</td>
+				<td>{{ application.stream.name }}</td>
+				<td id="priorityIndex">{{ application.get_priority_number_display }}</td>
+				<td>{{ application.created_date }}</td>
+				<td>
+				<div class="span3">
+				<input type='button' class='btn btn-block btn-danger' value='Delete' id='deleteapplication-{{ application.appln_id }}'
+				 onclick="js_delete_application('{{ application.appln_id }}')"></div></td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	  </table>
+	</div>  
+  <div id="buttonBarBottom" style="width:100%"></div>
+  <div id="modal-show-instructions" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="modal-show-instructions" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+				<h3 id="myModalLabel">Few Important Instructions</h3>
+			</div>
+			<div id="modal-show-instructions-body" class="modal-body">
+				<ol class="appInstructions">
+					<li>
+						You can set preference to each individual application. All you have to do is, drag the application, move and drop it to the row of your choice. Application will automatically assign priority,to each application, based on the position where you place the row. <b> Do not forget to save your preferences</b>.
+					</li>
+					<li>
+						Application preferences that you set during this session can be saved by clicking <b><i>Save My Preferences</i></b> button. You can edit your preferences any number of time.
+					</li>
+					<li>
+						You can always reorder, any number of time, your application preferences by drag and drop play. This page will always load with preferences that you have saved during last visit.
+					</li>
+					<li>
+						Please click <b><i>Submit and Pay</i></b> only when you wish to freeze your preferences. Once you submit this page - by clicking on <b><i>Submit and Pay</i></b>, the page will freeze and you will no longer be able to set preferences or delete your application.
+					</li>
+				</ol>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">I Accept</button>
+			</div>
+		</div>
+
+	<div id="modal-show-submit" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="modal-show-submit" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+				<h3 id="myModalLabel">Warning!</h3>
+			</div>
+			<div id="modal-show-submit-body" class="modal-body">
+				<p>Are you sure you want to submit your applications for further processing?</p>
+				
+				<p>This point onwards, you will be redirected for payment, and will not be able to make any change to your preference list.</p>
+				
+				<p>Press <b><i>Cancel</b></i> to go back to My Applications page, Or press <b><i>Take Me to Payment Desk</b></i> to freeze your list and move to payment desk.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+				<button class="btn btn-primary">Take Me to Payment Desk</button>
+			</div>
+		</div>	
+		{% endblock %}

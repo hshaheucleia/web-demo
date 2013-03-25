@@ -21,6 +21,7 @@
     <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
     <script type="text/javascript">
 		  /*<![CDATA[*/
+		  
 		 $(document).ajaxStart($.blockUI).ajaxStop($.unblockUI);
 		 
 		 $(document).ajaxSend(function(event, xhr, settings) {
@@ -99,11 +100,11 @@
 									<li><a href="{% url 'userena_profile_edit' user.username %}">{% trans "Edit profile" %}</a></li>
 									<li><a href="{% url 'userena_password_change' user.username %}">{% trans "Change password" %}</a></li>
 									<li><a href="{% url 'userena_email_change' user.username %}">{% trans "Change email" %}</a></li>
-									<li><a href="{% url 'userena_signout' %}">{% trans 'Logout' %}</a></li>
+									<li><a href="{% url 'userena_signout' %}">{% trans 'Sign Out' %}</a></li>
 								</ul>
 							</li>
 							{% else %}
-							 <li><a href="{% url 'userena_signin' %}" class="primay_menu_item"><div class="login_icon" style="padding:0;"><span>{% trans 'Login' %}</span></div></a></li>
+							 <li><a href="{% url 'userena_signin' %}" class="primay_menu_item"><div class="login_icon" style="padding:0;"><span>{% trans 'Sign In' %}</span></div></a></li>
 							  <li><a href="{% url 'userena_signup' %}" class="primay_menu_item"><div class="register_icon" style="padding:0;" ><span>{% trans 'Register' %}</span></div></a></li>
 							  <li><a href="{% url 'promo' %}" class="primay_menu_item"><div class="home_icon" style="padding:0;"><span>{% trans 'Home' %}</span></div></a></li>
 							  {% endif %}
@@ -155,7 +156,7 @@
       	<div id="content-container">
         {% block content %}{% endblock %}
       	</div><!-- /content-container-->
-      	<!--<div id="footer"><p>{% trans 'Made by' %} <a href="http://eucleiacorp.com">Eucleia</a></p></div>-->
+      	<div id="footer">{% trans 'All rights reserved by ' %} <a href="http://eucleiacorp.com">Eucleia Consultancy LLP</a></div>
     </div><!-- /container-->
    	<script type="text/javascript" src="{% static "js/jquery-ui-1.10.0.custom.min.js" %}"></script>
    	<script type="text/javascript" src="{% static "js/jquery.dropkick-1.0.0.js" %}"></script>
@@ -167,6 +168,7 @@
    	<script type="text/javascript" src="{% static "js/application.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/jquery.blockUI.js" %}"></script>
 	<script type="text/javascript" src="{% static "js/jquery.tablednd.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.printElement.js" %}"></script>
     <script src="http://vjs.zencdn.net/c/video.js"></script>
     <!--[if lt IE 8]>
     	<script type="text/javascript" src="{% static "js/icon-font-ie7.js" %}"></script>
