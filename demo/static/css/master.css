@@ -225,8 +225,9 @@ border-bottom-left-radius: 8px;
     background: url(../img/stripe.png) repeat-x center top;
     width:100%;
     padding: 5px 0;
-	position:absolute;
-	/*bottom:0;*/
+	position:fixed;
+	background-color:white;
+	bottom:0;
 	text-align:center;
 }
 
@@ -981,6 +982,11 @@ min-height: 52px;
 	width:100%;
 	height:auto;
 	padding:5px;
+	}
+	
+#buttonBarBottom	{
+	width:100%;
+	padding-bottom:60px;
 	}
 
 
