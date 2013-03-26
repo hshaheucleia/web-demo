@@ -13,15 +13,19 @@ middleware here, or combine a Django application with an application of another
 framework.
 
 """
+import django.core.handlers.wsgi
+
 import os
+import sys
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "demo_2.settings")
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__),'demo')))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'demo.settings'
+application = django.core.handlers.wsgi.WSGIHandler()
 
-# This application object is used by any WSGI server configured to use this
-# file. This includes Django's development server, if the WSGI_APPLICATION
-# setting points here.
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+path = '/home/ubuntu/eclweb/demo'
+if path not in sys.path:
+    sys.path.append(path)
+
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
