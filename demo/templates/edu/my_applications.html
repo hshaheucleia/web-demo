@@ -97,10 +97,10 @@
 	
 	function saveMyApplicationPreference()
 	{
-		alert('hello');
+		
 		var jsonDataObjectArray = [];
 		var jsonDataObject;
-		alert('hello1');
+	
 		$('#my-applications tr').each(function() {
 											jsonDataObject = { applicationID: $(this).find('#applicationID').html() , appPriority: $(this).find('#priorityIndex').html() };
 											jsonDataObjectArray.push(jsonDataObject);

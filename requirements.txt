@@ -6,11 +6,8 @@ dj-database-url==0.2.1
 django-appconf==0.5
 django-debug-toolbar==0.9.4
 django-guardian==1.0.4
-django-jsonfield==0.8.12
 django-userena==1.2.0
-easy-thumbnails==1.2
-eventlog==0.6.0
 metron==1.1
-psycopg2==2.4.6
 pytz==2012j
 wsgiref==0.1.2
+distribute
