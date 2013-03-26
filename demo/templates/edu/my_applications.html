@@ -97,6 +97,43 @@
 	
 	function saveMyApplicationPreference()
 	{
+		alert('hello');
+		var jsonDataObjectArray = [];
+		var jsonDataObject;
+		alert('hello1');
+		$('#my-applications tr').each(function() {
+											jsonDataObject = { applicationID: $(this).find('#applicationID').html() , appPriority: $(this).find('#priorityIndex').html() };
+											jsonDataObjectArray.push(jsonDataObject);
+											
+										});
+										
+		$.ajax({ // create an AJAX call to save the preference list
+			 dataType: 'json',
+            data: jsonDataObjectArray, // get the form data
+            type: 'POST', // GET or POST
+            url: "{% url 'TBD_HARSH' %}", // the file to call
+			beforeSend:function(){
+					$.blockUI();
+				},
+				complete: function() {
+					$.unblockUI();
+				},
+            success: function(response) { 
+            	/*
+				 * Harsh, Add any custom code to this block. Return "success" OR "error" - as response string from server side. Based on that messages are displayed -- see the code below
+				 */
+				
+				var obj = $.parseJSON(response);
+				//alert(obj['status']);
+				if(obj['status'] == 'success')
+				{
+					setMessageSpan('Your application preferences have been successfully saved into the system.', 'btn btn-large btn-block btn-primary');
+				}else{
+					setMessageSpan('We encountered error while saving your application preferences. Please retry after some time.', 'btn btn-large btn-block btn-danger');
+				}
+            }
+        });
+		
 	}
   /*]]>*/
 </script>
