@@ -127,5 +127,22 @@ def get_institute_info(request):
                 'info' : institute.about_info}
     else:
         return { 'status': 'error'}
+    
+def save_applications_priority(request):
+    try:
+        pref_data = simplejson.loads(request.body)
+        user = request.user
+        applications = user.applications.all().select_for_update().exclude(is_deleted=1)
+        for pref in pref_data:
+            if pref['applicationID']:
+                priority_val = int(pref['appPriority'])
+                appln = applications.filter(appln_id=pref['applicationID']).update(priority_number=priority_val)
         
+        response = {'status' : 'success' }
+        print response
+        return HttpResponse(simplejson.dumps(response))
+    except Exception as e:
+        print e
+        response = {'status' : 'error' }
+        return HttpResponse(simplejson.dumps(response)) 
     

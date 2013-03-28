@@ -8,12 +8,113 @@
 
 {% block content %}
 
-<form action="" enctype="multipart/form-data" method="post">
+{{ form.errors.as_ul }}
 
+<form action="" enctype="multipart/form-data" method="post">
   {% csrf_token %}
   <fieldset>
     <legend>{% trans "Edit Profile" %}</legend>
-    {{ form.as_p }}
+    <h3>Personal Information</h3>
+    <div style="display:none;">
+    	{{ form.language }}
+    	{{ form.privacy }}
+    </div>
+    <div class="control-group">
+		<div class="controls controls-row">
+			<div class="span3">
+				<label class="control-label" for="mugshot"><b>Photograph</b></label>
+				{{ form.mugshot }}
+			</div>
+			<div class="span6">
+	    		<label class="control-label" for="birth_date"><b>Birth Date</b></label>
+	    		{{ form.birth_date }}
+	    	</div>
+		</div>
+	</div>
+    <div class="control-group">
+		<div class="controls controls-row">
+			<div class="span3">
+				<label class="control-label" for="mobile_phone"><b>Mobile Number</b></label>
+            	{{ form.mobile_phone }}
+            </div>
+	    	<div class="span3">
+	    		<label class="control-label" for="home_phone"><b>Home Phone</b></label>
+	    		{{ form.home_phone }}
+	    	</div>
+	    	
+	    </div>
+    </div>
+    <div class="control-group">
+		<div class="controls controls-row">
+	    	<div class="span3">
+	    		<label class="control-label" for="gender"><b>Gender</b></label>
+	    		{{ form.gender }}
+	    	</div>
+		    	<div class="span3">
+		    		<label class="control-label" for="father_name"><b>Father's Name</b></label>
+		    		{{ form.father_name }}
+		    	</div>
+	    	<div class="span3">
+	    		<label class="control-label" for="mother_name"><b>Mother's Name</b></label>
+	    		{{ form.mother_name }}
+	    	</div>
+	    </div>
+    </div>
+    <h3>Educational Information</h3>
+    <div class="control-group">
+		<div class="controls controls-row">
+	    	<div class="span3">
+	    		<label class="control-label" for="exam_appeared"><b>Exams Appeared For:</b></label>
+	    		{{ form.exams }}
+	    	</div>
+	    	<div class="span3">
+	    		<label class="control-label" for="marks_10_percent"><b>Percentage Score in 10th</b></label>
+	    		{{ form.marks_10_percent }}
+	    	</div>
+	    	<div class="span3">
+	    		<label class="control-label" for="marks_12_percent"><b>Percentage Score in 12th</b></label>
+	    		{{ form.marks_12_percent }}
+	    	</div>
+    	</div>
+    </div>
+    <h3>Address Information</h3>
+    <div class="control-group">
+		<div class="controls controls-row">
+	    	<div class="span5">
+	    		<label class="control-label" for="addr_line1"><b>Address Line 1</b></label>
+	    		{{ form.addr_line1 }}
+	    	</div>
+	    	<div class="span6">
+	    		<label class="control-label" for="addr_line2"><b>Address Line 2</b></label>
+	    		{{ form.addr_line2 }}
+	    	</div>
+    	</div>
+    </div>
+    <div class="control-group">
+		<div class="controls controls-row">
+	    	<div class="span5">
+	    		<label class="control-label" for="state"><b>State</b></label>
+	    		{{ form.state }}
+	    	</div>
+	    	<div class="span3">
+	    		<label class="control-label" for="pin"><b>PIN Code</b></label>
+	    		{{ form.pin }}
+	    	</div>
+    	</div>
+    </div>
+    <h3>Identification Information</h3>
+    <div class="control-group">
+		<div class="controls controls-row">
+	    	<div class="span3">
+	    		<label class="control-label" for="photo_id"><b>Photo Identification Document</b></label>
+	    		{{ form.photo_id }}
+	    	</div>
+	    	<div class="span3">
+	    		<label class="control-label" for="photo_id_number"><b>Photo Identification Number</b></label>
+	    		{{ form.photo_id_number }}
+	    	</div>
+	    </div>
+    </div>
   </fieldset>
   <div class="span3">
   <input type="submit" class="btn btn-large btn-block btn-success" value="{% trans "Save changes" %}" />

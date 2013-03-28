@@ -4,7 +4,8 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 
-from profiles.forms import SignupFormExtra
+from profiles.forms import SignupFormExtra, UserProfileForm
+from userena import views as userena_views
 
 from django.contrib import admin
 admin.autodiscover()
@@ -18,6 +19,11 @@ urlpatterns = patterns('',
     # (r'^accounts/signup/$',
     #  'userena.views.signup',
     #  {'signup_form': SignupFormExtra}),
+    
+    url(r'^accounts/(?P<username>[\.\w-]+)/edit/$',
+       userena_views.profile_edit,
+       {'edit_profile_form': UserProfileForm },
+       name='userena_profile_edit'),
 
     (r'^accounts/', include('userena.urls')),
     (r'^messages/', include('userena.contrib.umessages.urls')),

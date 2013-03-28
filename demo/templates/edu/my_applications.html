@@ -97,21 +97,18 @@
 	
 	function saveMyApplicationPreference()
 	{
-		alert('hello');
 		var jsonDataObjectArray = [];
-		var jsonDataObject;
-		alert('hello1');
-		$('#my-applications tr').each(function() {
-											jsonDataObject = { applicationID: $(this).find('#applicationID').html() , appPriority: $(this).find('#priorityIndex').html() };
-											jsonDataObjectArray.push(jsonDataObject);
-											
+		var jsonDataObject = {};
+		$('#my-applications tr:not(th)').each(function() {
+											if($(this).find('#applicationID').html()){
+												jsonDataObject = { 'applicationID': $(this).find('#applicationID').html() , 'appPriority': $(this).find('#priorityIndex').html() };
+												jsonDataObjectArray.push(jsonDataObject);
+											}
 										});
-										
 		$.ajax({ // create an AJAX call to save the preference list
-			 dataType: 'json',
-            data: jsonDataObjectArray, // get the form data
+            data: JSON.stringify(jsonDataObjectArray), // get the form data
             type: 'POST', // GET or POST
-            url: "{% url 'TBD_HARSH' %}", // the file to call
+            url: "{% url 'edu_save_applications_priority' %}", // the file to call
 			beforeSend:function(){
 					$.blockUI();
 				},
@@ -119,10 +116,6 @@
 					$.unblockUI();
 				},
             success: function(response) { 
-            	/*
-				 * Harsh, Add any custom code to this block. Return "success" OR "error" - as response string from server side. Based on that messages are displayed -- see the code below
-				 */
-				
 				var obj = $.parseJSON(response);
 				//alert(obj['status']);
 				if(obj['status'] == 'success')
@@ -175,7 +168,7 @@
 				<td id="applicationID">{{ application.appln_id }}</td>
 				<td>{{ application.institute.name }}</td>
 				<td>{{ application.stream.name }}</td>
-				<td id="priorityIndex">{{ application.get_priority_number_display }}</td>
+				<td id="priorityIndex">{{ application.priority_number }}</td>
 				<td>{{ application.created_date }}</td>
 				<td>
 				<div class="span3">

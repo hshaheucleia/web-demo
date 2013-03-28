@@ -1,7 +1,10 @@
-from django import forms
+from utils import forms
 from django.utils.translation import ugettext_lazy as _
+from django.forms.widgets import CheckboxSelectMultiple
+from django.forms.extras.widgets import SelectDateWidget
 
 from userena.forms import SignupForm
+from profiles.models import Profile
 
 class SignupFormExtra(SignupForm):
     """ 
@@ -48,3 +51,12 @@ class SignupFormExtra(SignupForm):
         # Userena expects to get the new user from this form, so return the new
         # user.
         return new_user
+
+class UserProfileForm(forms.ModelForm):
+    birth_date = forms.DateField(widget=SelectDateWidget)
+    mobile_phone = forms.PhoneNumberField()
+    home_phone = forms.PhoneNumberField(required=False)
+    exams = forms.MultipleChoiceField(widget=CheckboxSelectMultiple)
+    
+    class Meta:
+        model = Profile

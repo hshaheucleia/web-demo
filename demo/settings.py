@@ -15,9 +15,9 @@ MANAGERS = ADMINS
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'eucleceu_educareer_stg',                      # Or path to database file if using sqlite3.
-        'USER': 'eucleceu_edu',                      # Not used with sqlite3.
-        'PASSWORD': 'eucleceu_edu',                  # Not used with sqlite3.
+        'NAME': 'demo',                      # Or path to database file if using sqlite3.
+        'USER': 'demo',                      # Not used with sqlite3.
+        'PASSWORD': 'demo',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -101,7 +101,7 @@ DEFAULT_FROM_EMAIL = 'Eucleia Education <eucleiallp@gmail.com>'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'eucleiallp@gmail.com'
-EMAIL_HOST_PASSWORD = 'eucleiallp@gmail'
+EMAIL_HOST_PASSWORD = 'llp@eucleia#gmail'
 EMAIL_PORT = '587'
 
 # Settings used by Userena
@@ -129,7 +129,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'guardian',
-    'south',
+    #'south',
     'userena',
     'userena.contrib.umessages',
     'profiles',
