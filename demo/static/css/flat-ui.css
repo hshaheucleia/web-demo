@@ -192,8 +192,11 @@ a {
     text-decoration: none; }
 
 h1 {
-  font-size: 32px;
-  font-weight: 900; }
+   border-bottom: 1px solid #bdc3c7;
+    color: #E67E22;
+    font-size: 20px;
+    font-weight: 900;
+    width: 100%; }
 
 h2 {
   font-size: 26px;
@@ -645,7 +648,7 @@ h6 {
   color: white;
   border-radius: 6px;
   overflow: hidden;
-  padding: 11px 45px 11px 13px;
+  padding: 2px 45px 2px 6px;
   text-decoration: none;
   white-space: nowrap;
   -webkit-transition: 0.25s;
