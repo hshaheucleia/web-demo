@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'edu',
     'utils',
     'easy_thumbnails',
+    'widget_tweaks',
 )
 
 LOGGING = {

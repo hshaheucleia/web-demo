@@ -33,7 +33,7 @@ def get_search_results(request):
             print "q is %s" % q
             if q:
                 institutes = Institute.objects.exclude(status=INACTIVE) \
-                                                .filter(Q(name__icontains=1) |
+                                                .filter(Q(name__icontains=q) |
                                                         Q(cur_pin__icontains=q) |
                                                         Q(cur_state__icontains=q))                               
             else:
