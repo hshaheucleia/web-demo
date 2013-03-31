@@ -176,13 +176,20 @@
     <script type="text/javascript">
     $(function() {
         $( ".birthdatepicker" ).datepicker({
-            dateFormat : 'dd/mm/yy',
+            dateFormat : 'mm/dd/yy',
             changeMonth: true,
             changeYear: true,
             yearRange: '-100y:c+nn',
             maxDate: '-1d'
         });
         $(".datepicker").datepicker();
+        $('.typeahead').typeahead({
+            source: function (query, process) {
+                return $.get("{% url 'edu_autocomplete_suggestion'%}", { query: query }, function (data) {
+                    return process(JSON.parse(data));
+                });
+            }
+        });
     });
     </script>
     <!--[if lt IE 8]>
