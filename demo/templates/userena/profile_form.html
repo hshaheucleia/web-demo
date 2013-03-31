@@ -8,7 +8,7 @@
 
 {% block content %}
 
-{{ form.errors.as_ul }}
+{{ form.errors.as_p }}
 
 <form action="" enctype="multipart/form-data" method="post">
   {% csrf_token %}
@@ -64,7 +64,7 @@
     <div class="control-group">
 		<div class="controls controls-row">
 	    	<div class="span3">
-	    		<label class="control-label" for="exam_appeared"><b>Exams Appeared For:</b></label>
+	    		<label class="control-label" for="exams"><b>Exams Appeared For:</b></label>
 	    		{{ form.exams }}
 	    	</div>
 	    	<div class="span3">

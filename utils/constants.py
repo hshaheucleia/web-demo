@@ -43,6 +43,5 @@ STATE_CHOICES = [('AP', 'Andhra Pradesh'),
                 ('LD', 'Lakshadweep'),
                 ('PY', 'Puducherry')]
 
-EXAM_STATE_CHOICES = STATE_CHOICES
 
-EXAM_COVERAGE_CHOICES = EXAM_STATE_CHOICES.append(('IN', 'All India'))
+EXAM_COVERAGE_CHOICES = [('IN','All India')] + STATE_CHOICES

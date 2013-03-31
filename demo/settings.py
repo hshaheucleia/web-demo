@@ -109,8 +109,13 @@ LOGIN_REDIRECT_URL = '/accounts/%(username)s/'
 LOGIN_URL = '/accounts/signin/'
 LOGOUT_URL = '/accounts/signout/'
 AUTH_PROFILE_MODULE = 'profiles.Profile'
+
+#Userena settings
 USERENA_DISABLE_PROFILE_LIST = True
-USERENA_MUGSHOT_SIZE = 140
+USERENA_MUGSHOT_PATH =  "photos/%(username)s/"
+USERENA_DEFAULT_PRIVACY = 'closed'
+USERENA_DISABLE_PROFILE_LIST = True
+USERENA_HIDE_EMAIL = True
 
 ROOT_URLCONF = 'demo.urls'
 WSGI_APPLICATION = 'demo.wsgi.application'
@@ -135,6 +140,7 @@ INSTALLED_APPS = (
     'profiles',
     'edu',
     'utils',
+    'easy_thumbnails',
 )
 
 LOGGING = {
@@ -166,3 +172,9 @@ ANONYMOUS_USER_ID = -1
 
 # Test runner
 TEST_RUNNER = 'django.test.simple.DjangoTestSuiteRunner'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
+

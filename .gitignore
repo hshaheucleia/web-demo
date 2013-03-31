@@ -39,3 +39,6 @@ demo/media/admin
 .project
 .settings/
 .pydevproject
+
+#local settings
+local_settings.py

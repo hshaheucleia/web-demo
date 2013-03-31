@@ -2,7 +2,11 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from userena.models import UserenaLanguageBaseProfile
+from easy_thumbnails.fields import ThumbnailerImageField
+from userena import settings as userena_settings
 from userena.utils import user_model_label
+from userena.models import upload_to_mugshot
+
 from utils.constants import STATE_CHOICES
 
 from edu.models import Exam
@@ -15,6 +19,10 @@ class Profile(UserenaLanguageBaseProfile):
         (1, _('Male')),
         (2, _('Female')),
     )
+    
+    MUGSHOT_SETTINGS = {'size': (userena_settings.USERENA_MUGSHOT_SIZE,
+                                 userena_settings.USERENA_MUGSHOT_SIZE),
+                        'crop': userena_settings.USERENA_MUGSHOT_CROP_TYPE}
 
     user = models.OneToOneField(user_model_label,
                                 unique=True,
@@ -45,7 +53,11 @@ class Profile(UserenaLanguageBaseProfile):
     marks_10_percent = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     marks_12_percent = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
     
-    photo_id = models.CharField(max_length=100, blank=True)
+    photo_id = ThumbnailerImageField(_('mugshot'),
+                                    blank=True,
+                                    upload_to=upload_to_mugshot,
+                                    resize_source=MUGSHOT_SETTINGS,
+                                    help_text=_('A personal image displayed in your profile.'))
     photo_id_number = models.CharField(max_length=100, blank=True)
     
     def is_profile_complete(self):

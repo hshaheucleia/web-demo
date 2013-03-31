@@ -3,8 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.forms.widgets import CheckboxSelectMultiple
 from django.forms.extras.widgets import SelectDateWidget
 
-from userena.forms import SignupForm
+from userena.forms import SignupForm, EditProfileForm
 from profiles.models import Profile
+from edu.models import Exam
 
 class SignupFormExtra(SignupForm):
     """ 
@@ -52,11 +53,7 @@ class SignupFormExtra(SignupForm):
         # user.
         return new_user
 
-class UserProfileForm(forms.ModelForm):
-    birth_date = forms.DateField(widget=SelectDateWidget)
+class UserProfileForm(EditProfileForm):
     mobile_phone = forms.PhoneNumberField()
     home_phone = forms.PhoneNumberField(required=False)
-    exams = forms.MultipleChoiceField(widget=CheckboxSelectMultiple)
-    
-    class Meta:
-        model = Profile
+    exams = forms.ModelMultipleChoiceField(queryset=Exam.objects.all(), widget=CheckboxSelectMultiple())
