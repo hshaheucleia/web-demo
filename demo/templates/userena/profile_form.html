@@ -8,7 +8,7 @@
 
 {% block content %}
 
-{{ form.errors.as_p }}
+{{ form.errors.as_ul }}
 
 <form action="" enctype="multipart/form-data" method="post">
   {% csrf_token %}

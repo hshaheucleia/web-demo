@@ -56,4 +56,5 @@ class SignupFormExtra(SignupForm):
 class UserProfileForm(EditProfileForm):
     mobile_phone = forms.PhoneNumberField()
     home_phone = forms.PhoneNumberField(required=False)
+    birth_date = forms.DateField(widget=forms.TextInput(attrs={'class':'birthdatepicker'}))
     exams = forms.ModelMultipleChoiceField(queryset=Exam.objects.all(), widget=CheckboxSelectMultiple())

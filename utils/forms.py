@@ -7,38 +7,42 @@ class SmallTextarea(Textarea):
 
 
 class CharField(CharField):
-    def widget_attrs(self, widget):
+    pass
+    """def widget_attrs(self, widget):
         attrs = super(CharField, self).widget_attrs(widget) or {}
         if isinstance(widget, SmallTextarea):
             attrs.update({'class': 'textarea', 'rows': 2, 'cols': 30})
         elif isinstance(widget, Textarea):
-            attrs.setdefault('class', 'textarea')
-            attrs.setdefault('rows', 5)
-            attrs.setdefault('cols', 30)
-            attrs.update(widget.attrs)
+            #attrs.setdefault('class', 'textarea')
+            #attrs.setdefault('rows', 5)
+            #attrs.setdefault('cols', 30)
+            #attrs.update(widget.attrs)
         else:
             attrs.update({'class': 'textbox_25'})
-        return attrs
+        return attrs"""
 
 
 class EmailField(EmailField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(EmailField, self).widget_attrs(widget) or {}
         attrs.update({'class': 'textbox_25 email'})
-        return attrs
+        return attrs'''
 
 
 class ChoiceField(ChoiceField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(ChoiceField, self).widget_attrs(widget) or {}
         attrs.update({'class': 'dropdown_25'})
-        return attrs
+        return attrs'''
 
 
 class DateField(DateField):
-    widget = DateInput(format='%d/%m/%Y')
+    pass
+    #widget = DateInput(format='%d/%m/%Y')
 
-    def __init__(self, allow_past=False, *args, **kwargs):
+    '''def __init__(self, allow_past=False, *args, **kwargs):
         kwargs['input_formats'] = ['%d/%m/%Y']
         self.allow_past = allow_past
         super(DateField, self).__init__(*args, **kwargs)
@@ -49,35 +53,39 @@ class DateField(DateField):
             attrs.update({'class': 'textbox_25 pastdatefield', 'readonly': 'readonly', 'autocomplete': 'off'})
         else:
             attrs.update({'class': 'textbox_25 datefield', 'readonly': 'readonly', 'autocomplete': 'off'})
-        return attrs
+        return attrs'''
 
 
 class DecimalField(DecimalField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(DecimalField, self).widget_attrs(widget) or {}
         attrs.update({'class': 'textbox_25'})
-        return attrs
+        return attrs'''
 
 
 class IntegerField(DecimalField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(DecimalField, self).widget_attrs(widget) or {}
         attrs.update({'class': 'textbox_25'})
-        return attrs
+        return attrs'''
 
 
 class ModelChoiceField(ModelChoiceField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(ModelChoiceField, self).widget_attrs(widget) or {}
         attrs.update({'class': 'dropdown_25'})
-        return attrs
+        return attrs'''
 
 
 class BooleanField(BooleanField):
-    def widget_attrs(self, widget):
+    pass
+    '''def widget_attrs(self, widget):
         attrs = super(BooleanField, self).widget_attrs(widget) or {}
         attrs.update({'class': ''})
-        return attrs
+        return attrs'''
 
 
 class NumericMathField(RegexField):
@@ -119,5 +127,5 @@ class PhoneNumberField(RegexField):
 
     def widget_attrs(self, widget):
         attrs = super(PhoneNumberField, self).widget_attrs(widget) or {}
-        attrs.update({'class': 'textbox_25'})
+        #attrs.update({'class': 'textbox_25'})
         return attrs
