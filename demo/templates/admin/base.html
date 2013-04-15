@@ -1,0 +1,107 @@
+{% load admin_static %}{% load url from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "css/master.css" %}{% endblock %}" />
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/base.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/bootstrap.css" %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static "css/flat-ui.css" %}" />
+
+{% block extrastyle %}{% endblock %}
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static "js/bootstrap.min.js" %}"></script>
+	<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+	<script type="text/javascript" src="{% static "js/jquery-ui-1.10.0.custom.min.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/jquery.dropkick-1.0.0.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/custom_checkbox_and_radio.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/custom_radio.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/jquery.tagsinput.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/bootstrap-tooltip.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/jquery.placeholder.js" %}"></script>
+   	<script type="text/javascript" src="{% static "js/application.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.blockUI.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.tablednd.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/jquery.printElement.js" %}"></script>
+{% block extrahead %}{% endblock %}
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+
+<!-- Container -->
+<div id="container">
+
+    {% if not is_popup %}
+    <!-- Header -->
+    <div id="top">
+
+		<div class="navbar navbar-inverse">
+			<div class="navbar-inner">
+				<div class="container">
+					<div class="nav-collapse collapse">
+						<span>Eucleia | CareerPath | Administration</span>
+						
+							{% block branding %}{% endblock %}
+						<ul class="nav" style="float:right;">
+							{% if user.is_active and user.is_staff %}
+							
+								<li class="primay_menu_item" style="height:40px;border-left:none;">{% trans 'Welcome,' %}
+									<strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong>.
+								</li>
+								{% block userlinks %}
+									{% url 'django-admindocs-docroot' as docsroot %}
+									{% if docsroot %}
+								<li><a class="primay_menu_item" href="{{ docsroot }}"><div style="height:40px;">{% trans 'Documentation' %}</div></a></li>
+									{% endif %}
+								<li><a class="primay_menu_item" href="{% url 'admin:password_change' %}"><div style="height:40px;padding-left:5px;">{% trans 'Change password' %}</div></a></li>
+								<li><a class="primay_menu_item" href="{% url 'admin:logout' %}"><div style="height:40px;">{% trans 'Log out' %}</div></a></li>
+								{% endblock %}
+							
+							{% endif %}
+						</ul>
+							{% block nav-global %}{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+    </div>    <!-- END Header -->
+    {% block breadcrumbs %}
+    <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    {% if title %} &rsaquo; {{ title }}{% endif %}
+    </div>
+    {% endblock %}
+    {% endif %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}<h1>Career Path - Data Management Console{% if title %} - {{ title }}</h1>{% endif %}{% endblock %}
+        {% block content %}
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+
+    {% block footer %}<div id="footer">All rights reserved by <a href="http://eucleiacorp.com">Eucleia Consultancy LLP</a></div>{% endblock %}
+</div>
+<!-- END Container -->
+
+</body>
+</html>

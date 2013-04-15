@@ -1,0 +1,9 @@
+{% load i18n %}
+<div class="submit-row">
+{% if show_delete_link %}<div class="span3"><a href="delete/" class="btn btn-large btn-block btn-danger" style="color:white;">{% trans "Delete" %}</a></div>{% endif %}
+{% if show_save %}<div class="span3"><input type="submit"  class="btn btn-large btn-block btn-success" value="{% trans 'Save' %}" class="default" name="_save" {{ onclick_attrib }}/></div>{% endif %}
+
+{% if show_save_as_new %}<div class="span3"><input type="submit"  class="btn btn-large btn-block btn-success" value="{% trans 'Save as new' %}" name="_saveasnew" {{ onclick_attrib }}/></div>{%endif%}
+{% if show_save_and_add_another %}<div class="span3"><input type="submit" class="btn btn-large btn-block btn-success"  value="{% trans 'Save and add another' %}" name="_addanother" {{ onclick_attrib }} /></div>{% endif %}
+{% if show_save_and_continue %}<div class="span3"><input type="submit" class="btn btn-large btn-block btn-success" value="{% trans 'Save and continue editing' %}" name="_continue" {{ onclick_attrib }}/></div>{% endif %}
+</div>
