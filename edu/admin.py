@@ -2,7 +2,7 @@
 from django.contrib import admin
 from edu.models import Institute, Stream, University, XLAT, Application, Exam
 
-<<<<<<< HEAD
+
 class InstituteAdmin(admin.ModelAdmin):
 	list_display = ('inst_id', 'name', 'university','aicte_approv_status','reg_state')
 	search_fields = ['inst_id']
