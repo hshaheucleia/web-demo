@@ -10,6 +10,8 @@ urlpatterns = patterns('edu.views',
     url('^delete-application/$','delete_application', name='edu_delete_application'),
     url('^about-institute/$','get_institute_info', name='edu_get_institute_info'),
     url('^save-applications-priority/$','save_applications_priority', name='edu_save_applications_priority'),
+    url('^autocomplete-suggestion/$','autocomplete_suggestion', name='edu_autocomplete_suggestion'),
+    
 )
 
 

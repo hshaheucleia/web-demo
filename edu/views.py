@@ -2,6 +2,7 @@
 import datetime
 import uuid
 
+from django.db.models import Q
 from utils.decorators import render_to, require_complete_profile
 from django.shortcuts import get_object_or_404, redirect
 from django.core.urlresolvers import reverse
@@ -10,7 +11,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from edu.models import University, Institute, Application, Stream
+from edu.models import University, Institute, Application, Stream, INACTIVE, Exam
 from edu.forms import SearchForm
 
 
@@ -27,12 +28,17 @@ def get_search_results(request):
     if request.POST:
         form = SearchForm(request.POST)
         if form.is_valid():
+            q = form.cleaned_data['q'].strip()
             data = form.cleaned_data
+            print "q is %s" % q
+            if q:
+                institutes = Institute.objects.exclude(status=INACTIVE) \
+                                                .filter(Q(name__icontains=q) |
+                                                        Q(cur_pin__icontains=q) |
+                                                        Q(cur_state__icontains=q))                               
+            else:
+                institutes = Institute.objects.exclude(status=INACTIVE)
             
-            institutes = Institute.objects.all()
-            
-            #assuming that after applying search criteria, the final institute like is in 'institutes'
-
             user = request.user
             applied_institutes = user.applications.exclude(is_deleted=1).values_list('institute',flat=True)
             
@@ -144,5 +150,9 @@ def save_applications_priority(request):
     except Exception as e:
         print e
         response = {'status' : 'error' }
-        return HttpResponse(simplejson.dumps(response)) 
+        return HttpResponse(simplejson.dumps(response))
+    
+def autocomplete_suggestion(request):
+    return HttpResponse(simplejson.dumps(list(Institute.objects.values_list('name',flat=True))))
+    
     

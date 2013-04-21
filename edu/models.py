@@ -118,7 +118,7 @@ class Exam(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     
     def __unicode__(self):
-        return "%s - %s" % (self.abbr, self.full_name)
+        return "%s" % (self.abbr)
     
     class Meta:
         ordering = ['full_name']
