@@ -1,7 +1,4 @@
-# Userena Demo
+#Eucleia Education Portal
 
-These are the files for the Userena demo running on
-http://www.django-userena.org.
+This is a education portal based on Python/Django to allow single click applications to universities across India.
 
-Thanks go out to [dotcloud](https://www.dotcloud.com/index.html) for supplying
-us with free hosting.
